@@ -73,12 +73,24 @@ def build_system_prompt(catalog_text, has_image=False):
     if has_image:
         image_rule = "6. Analyse l'image pour identifier l'état de la cuisine et les travaux nécessaires.\n"
 
-    return f"""Tu es un expert en rénovation de cuisines.
-Sélectionne les prestations nécessaires UNIQUEMENT depuis le catalogue ci-dessous.
-
-CATALOGUE DES PRESTATIONS :
-{catalog_text}
-
-RÈGLES :
-1. Sélectionne UNIQUEMENT des prestations du catalogue.
-2. Pour les m², utilise la surface du
+    return (
+        "Tu es un expert en rénovation de cuisines.\n"
+        "Sélectionne les prestations nécessaires UNIQUEMENT depuis le catalogue ci-dessous.\n\n"
+        "CATALOGUE DES PRESTATIONS :\n"
+        f"{catalog_text}\n\n"
+        "RÈGLES :\n"
+        "1. Sélectionne UNIQUEMENT des prestations du catalogue.\n"
+        "2. Pour les m², utilise la surface du client ou estime-la.\n"
+        "3. Pour les ml, estime le périmètre.\n"
+        "4. Pour les forfaits, quantité = 1.\n"
+        "5. Pour les unités, estime le nombre.\n"
+        f"{image_rule}\n"
+        'Réponds UNIQUEMENT en JSON valide :\n'
+        '{\n'
+        '  "analyse": "courte analyse du besoin",\n'
+        '  "prestations": [\n'
+        '    {"dtu_code": "DTUXXX", "description": "desc", "unite": "u", "quantite": 0, "prix_unitaire": 0, "total": 0}\n'
+        '  ],\n'
+        '  "total_general": 0\n'
+        '}'
+    )
