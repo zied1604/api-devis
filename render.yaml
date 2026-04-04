@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: api-devis-cuisine
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api_devis:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SNOWFLAKE_ACCOUNT
+        value: lt50162
+      - key: SNOWFLAKE_USER
+        value: JOUDZOUZA
+      - key: SNOWFLAKE_PASSWORD
+        sync: false

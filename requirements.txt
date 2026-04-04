@@ -1,0 +1,5 @@
+# requirements.txt
+fastapi
+uvicorn
+snowflake-connector-python
+pydantic
